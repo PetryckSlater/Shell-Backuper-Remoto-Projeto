@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function config {
-	echo "digite o nome do arquivo que deseja fazer backup: "
-	read arq_backup
+	#echo "digite o nome do arquivo que deseja fazer backup: "
+	#read arq_backup
 	
 	echo "o arquivo usada sera [ $arq_backup ]"
 	
@@ -32,14 +32,14 @@ function config {
 	echo "$user $pass $ipp save_backup"/"$arq_backup" >> config/configs.txt
 	
 	echo " Digite a pasta onde o backup do arquivo ficara: "
-	read maquina_remotapast
-	mkdir save_backup
 	echo "A pasta remota sera: $maquina_remotapast "
-	scp -r $pasta_backup $user"@"$ipp":"$loca ~/save_backup
+	mkdir $user$ipp
+	nome=$user$ipp
+	scp -r $user@$ipp:$loca /home/waffle/Documents/shelltrabalho-main/$nome
 	date_format=$(date "+%d-%m-%Y")
-	arquivo_final="$user-$date_format"
-	echo "comprimindo..."
-	zip -r $arquivo_final.zip save_backup/$arq_backup
+	arquivo_final=$user-$date_format
+	echo "comprimindo..." 
+	zip -r $arquivo_final.zip $nome
 	tt1=$(ls ./save_backup)
 	echo "arquviso gerados:$tt1 "
 	
