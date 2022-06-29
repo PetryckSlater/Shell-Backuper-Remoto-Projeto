@@ -27,8 +27,8 @@ function config {
 	touch configs.txt
 	mv configs.txt config
 	echo "Arquivo Configs criadas"
-	echo "$user $pass $ipp save_backup"/"$loca" >> config/configs.txt
-	arq=$(pwd)
+	echo "$user $pass $ipp save_backup/$loca" >> config/configs.txt
+	arb=$(pwd)
 	#Enviar as paginas
 	echo " Digite a pasta onde o backup do arquivo ficara: "
 	echo "A pasta remota sera: $arb "
@@ -40,9 +40,9 @@ function config {
 	sleep 5
 	echo "comprimindo..." 
 	zip -r $arquivo_final.zip $nome
-	mv $arquivo_final.zip /save_backup
-	tt1=$(ls ./save_backup)
-	echo "arquviso gerados:$tt1 "
+	sleep 4
+	mv $arquivo_final.zip save_backup
+	
 	
 	
 	
