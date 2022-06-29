@@ -40,7 +40,7 @@ function config {
 	sleep 5
 	echo "comprimindo..." 
 	zip -r $arquivo_final.zip $nome
-
+	mv $arquivo_final.zip /save_backup
 	tt1=$(ls ./save_backup)
 	echo "arquviso gerados:$tt1 "
 	
