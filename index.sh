@@ -26,7 +26,7 @@ function config {
 	mkdir config
 	mv configs.txt config
 	echo "Arquivo Configs criadas"
-	echo "$user $pass $ipp $pasta_backup" >> config/configs.txt
+	echo "$user $pass $ipp save_backup$pasta_backup" >> config/configs.txt
 	
 	echo " Digite o nome da maquina remota: "
 	read maquina_remota
@@ -36,19 +36,17 @@ function config {
 	scp -r $pasta_backup $user"@"$ipp":"$maquina_remota
 	date_format=$(date "+%d-%m-%Y")
 	arquivo_final="$maquina_remota-$date_format"
-	sleep 1
 	echo "comprimindo..."
 	zip -r $arquivo_final.zip $maquina_remota
 	mv $arquivo_final.zip save_backup
-
 	
 	echo "Você deseja voltar para o main?y/n"
 	read respost
-	case "$repost" in
-		y|Y"")
+	case $repost in
+		"y")
 			./main.sh
 			;;
-		n|N)
+		"n")
 			return 0
 		;;
 	esac
@@ -56,10 +54,17 @@ function config {
 
 	
 }
+function logfix { 
+	touch log.txt
+	dat=$(date "+%d-%m-%y")
+	lag=$(ls ./save_backup)
+	echo "$lag"
+	echo "Mod: $lag " >> log.txt
+}	
 function sair { 
 	return 0 
 }
-echo "digite o quê você deseja fazer: '\n' 1)executar 2)sair  "
+echo "digite o quê você deseja fazer: '\n' 1)executar 2)sair 3)log  "
 read inf
 case $inf in
 	"1")
@@ -67,6 +72,9 @@ case $inf in
 	;;
 	"2")
 		sair
+	;;
+	"3")
+		logfix
 	;;
 esac
 
