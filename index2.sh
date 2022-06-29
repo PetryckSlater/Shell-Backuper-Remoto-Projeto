@@ -5,6 +5,8 @@ function config {
 	echo "digite a pasta que ele deseja fazer o backup: "
 	read loca
 	echo "ele se localiza na pasta [ $loca ] "
+    #definir pasta onde ficara o backup
+    echo -e "Diga-me mortal... \nQual pasta ficara... \nSeu arquivo..."
 	#Ip
 	echo "Digite seu ip: "
 	read ipp
@@ -28,19 +30,18 @@ function config {
 	mv configs.txt config
 	echo "Arquivo Configs criadas"
 	echo "$user $pass $ipp save_backup"/"$loca" >> config/configs.txt
-	arq=$(pwd)
+
 	#Enviar as paginas
 	echo " Digite a pasta onde o backup do arquivo ficara: "
-	echo "A pasta remota sera: $arb "
-	scp -r $user@$ipp:$loca $arb/$nome
-	echo "$arb/$nome"
+	echo "A pasta remota sera: $arqt "
+	scp -r $user@$ipp:$loca $arqt$nome
 	date_format=$(date "+%d-%m-%Y")
 	arquivo_final=$user-$date_format
 	#comprimidor
 	sleep 5
 	echo "comprimindo..." 
 	zip -r $arquivo_final.zip $nome
-
+    mv $arquivo_final /save_backup
 	tt1=$(ls ./save_backup)
 	echo "arquviso gerados:$tt1 "
 	
