@@ -29,7 +29,7 @@ function config {
 	mkdir config
 	mv configs.txt config
 	echo "Arquivo Configs criadas"
-	echo "$user $pass $ipp save_backup$pasta_backup" >> config/configs.txt
+	echo "$user $pass $ipp save_backup"/"$arq_backup" >> config/configs.txt
 	
 	echo " Digite a pasta onde o backup do arquivo ficara: "
 	read maquina_remotapast
@@ -40,6 +40,8 @@ function config {
 	arquivo_final="$user-$date_format"
 	echo "comprimindo..."
 	zip -r $arquivo_final.zip save_backup/$arq_backup
+	tt1=$(ls ./save_backup)
+	echo "arquviso gerados:$tt1 "
 	
 	
 	
