@@ -1,11 +1,14 @@
 #!/bin/bash
 
 function config {
-	echo "digite a pasta que deseja fazer backup: "
-	read pasta_backup
+	echo "digite o nome do arquivo que deseja fazer backup: "
+	read arq_backup
 	
-	echo "A pasta usada sera [ $pasta_backup ]"
+	echo "o arquivo usada sera [ $arq_backup ]"
 	
+	echo "digite a a pasta onde ele se localiza: "
+	read loca
+	echo "ele se localiza na pasta [ $loca ] "
 
 	echo "Digite seu ip: "
 	read ipp
@@ -28,30 +31,18 @@ function config {
 	echo "Arquivo Configs criadas"
 	echo "$user $pass $ipp save_backup$pasta_backup" >> config/configs.txt
 	
-	echo " Digite o nome da maquina remota: "
-	read maquina_remota
-	rm -rf save_backup
+	echo " Digite a pasta onde o backup do arquivo ficara: "
+	read maquina_remotapast
 	mkdir save_backup
-	mkdir $maquina_remota
-	scp -r $pasta_backup $user"@"$ipp":"$maquina_remota
+	echo "A pasta remota sera: $maquina_remotapast "
+	scp -r $pasta_backup $user"@"$ipp":"$loca ~/save_backup
 	date_format=$(date "+%d-%m-%Y")
-	arquivo_final="$maquina_remota-$date_format"
+	arquivo_final="$user-$date_format"
 	echo "comprimindo..."
-	zip -r $arquivo_final.zip $maquina_remota
-	mv $arquivo_final.zip save_backup
+	zip -r $arquivo_final.zip save_backup/$arq_backup
 	
-	echo "Você deseja voltar para o main?y/n"
-	read respost
-	case $repost in
-		"y")
-			./main.sh
-			;;
-		"n")
-			return 0
-		;;
-	esac
-
-
+	
+	
 	
 }
 function logfix { 
@@ -64,7 +55,8 @@ function logfix {
 function sair { 
 	return 0 
 }
-echo "digite o quê você deseja fazer: '\n' 1)executar 2)sair 3)log  "
+
+echo "digite o quê você deseja fazer:  1)executar 2)sair 3)log  "
 read inf
 case $inf in
 	"1")
@@ -77,4 +69,3 @@ case $inf in
 		logfix
 	;;
 esac
-
