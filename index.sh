@@ -42,7 +42,10 @@ function config {
 	zip -r $arquivo_final.zip $nome
 	sleep 4
 	mv $arquivo_final.zip save_backup
-	
+	echo "arquivo $arquivo_final movido."
+	ls -a save_backup/
+	sleep 2
+	rm -rf $nome
 	
 	
 	
@@ -60,21 +63,31 @@ function deub.o {
 	read b_o
 	#Criar o config
 	if [ $b_o -eq 1 ]; then
-	echo "Arquivo config criado..."
+	echo "Arquivo sendo removido residual..."
+	rm -rf config
+	sleep 3
+	echo "Arquivo config esta sendo criado..."
 	mkdir config
-	echo "Arquivo Criado com sucessor"
+	echo "Arquivo restaurado com sucessor"
+	sleep 3
 	#criar save_backup
 	elif [ $b_o -eq 2 ]
 	then
-	mkdir save_backup
-	echo "Arquivo save_backup criado..."
+	echo "Arquivo sendo removido residual..."
+	rm -rf save_backup
 	sleep 3
-	echo "Arquivo Criado com sucessor"
+	mkdir save_backup
+	echo "Arquivo save_backup esta sendo criado..."
+	sleep 3
+	echo "Arquivo restaurado com sucessor"
 	#criar log
 	elif [ $b_o -eq 3 ]
 	then
+	echo "Arquivo sendo removido residual..."
+	rm -f log.txt
+	sleep 3
 	touch log.txt
-	echo "Arquivo log criado..."
+	echo "Arquivo log esta sendo criado..."
 	sleep 3
 	echo "Arquivo Criado com sucessor"
 	#sair
