@@ -4,7 +4,7 @@ function config {
 	echo "digite a pasta que deseja fazer backup: "
 	read pasta_backup
 	
-	echo "A pasta criada foi [ $pasta_backup ]"
+	echo "A pasta usada sera [ $pasta_backup ]"
 	
 
 	echo "Digite seu ip: "
@@ -13,28 +13,53 @@ function config {
 	echo "O ip selecionado foi: $ipp"
 	
 
-	echo "Digite tua senha vacilão: "
+	echo "Digite sua senha: "
 	read -s pass
 	echo " se a senha não pegar vai ter que colocar novamente em!: "
 	
 
 	echo "digite seu usuario: "
 	read user
-	echo "usuario $user aceito"
+	echo "usuario $user configurado"
 
 	touch configs.txt
 	mkdir config
 	mv configs.txt config
 	echo "Arquivo Configs criadas"
 	echo "$user $pass $ipp $pasta_backup" >> config/configs.txt
+	
+	echo " Digite o nome da maquina remota: "
+	read maquina_remota
+	rm -rf save_backup
+	mkdir save_backup
+	mkdir $maquina_remota
+	scp -r $pasta_backup $user"@"$ipp":"$maquina_remota
+	date_format=$(date "+%d-%m-%Y")
+	arquivo_final="$maquina_remota-$date_format"
+	sleep 1
+	echo "comprimindo..."
+	zip -r $arquivo_final.zip $maquina_remota
+	mv $arquivo_final.zip save_backup
+
+	
+	echo "Você deseja voltar para o main?y/n"
+	read respost
+	case "$repost" in
+		y|Y"")
+			./main.sh
+			;;
+		n|N)
+			return 0
+		;;
+	esac
 
 
+	
 }
-
 function sair { 
 	return 0 
 }
-echo "digite o quê você deseja configurar: \n 1)configurar 2)sair  "
+echo "digite o quê você deseja fazer: '\n' 1)executar 2)sair  "
 read inf
 case $inf in
 	"1")
