@@ -6,14 +6,15 @@ function ler_config {
 
 function backups_quant {
 	a=$(pwd ./save_backup)
-	b=$(ls -a ./save_backup)
-	echo "Os backups estão localizados em $a, e são $b. "
+	b=$(ls -lh ./save_backup)
+	echo -e "Os backups estão localizados em $a, e são \n$b. "
 }
 
 function sair {
 	return 0
 }
-echo " Digite: 1)executar 2)Listar_backups 3)sair"
+echo -e " Digite: 1)executar \n2)Listar backups 3)sair"
+echo "-------------------------------------------------"
 read r
 case $r in
 	"1")

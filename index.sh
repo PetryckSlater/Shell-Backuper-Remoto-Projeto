@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function config {
+
 	#definir pasta onde sera feito o backup
 	echo "---------------------------------------------------"
 	echo "digite a pasta que ele deseja fazer o backup: "
@@ -21,6 +22,7 @@ function config {
 	read -s pass
 	echo " Não vacile! "
 	echo "---------------------------------------------------"
+
 	#user
 	echo "---------------------------------------------------"
 	echo "digite seu usuario: "
@@ -36,6 +38,7 @@ function config {
 	echo "$user $pass $ipp save_backup/$loca" >> config/configs.txt
 	arb=$(pwd)
 	echo "---------------------------------------------------"
+
 	#Enviar as paginas
 	echo " Digite a pasta onde o backup do arquivo ficara: "
 	echo "A pasta remota sera: $arb "
@@ -43,6 +46,7 @@ function config {
 	echo "$arb/$nome"
 	date_format=$(date "+%d-%m-%Y")
 	arquivo_final=$user-$date_format
+
 	#comprimidor
 	sleep 5
 	echo "comprimindo..." 
@@ -56,7 +60,7 @@ function config {
 	echo "---------------------------------------------------"
 	echo "arquivo $arquivo_final movido."
 	echo "---------------------------------------------------"
-	ls -a save_backup/
+	ls -lh save_backup/
 	sleep 2
 	rm -rf $nome
 	
