@@ -4,7 +4,7 @@ function config {
 
 	#definir pasta onde sera feito o backup
 	echo "---------------------------------------------------"
-	echo "digite a pasta que ele deseja fazer o backup: "
+	echo "digite a pasta que deseja fazer o backup: "
 	read loca
 	echo "---------------------------------------------------"
 	echo "ele se localiza na pasta [ $loca ] "
